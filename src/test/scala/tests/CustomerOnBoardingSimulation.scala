@@ -57,3 +57,5 @@ class CustomerOnBoardingSimulation extends Simulation {
 
 
 }
+
+//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -Dgatling.simulationClass=tests.CompanyPayrollsSimulation=Simulation
