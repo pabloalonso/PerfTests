@@ -54,6 +54,7 @@ class ExecuteTaskAction(coreComponents: CoreComponents,
         val sob : SearchOptionsBuilder = new SearchOptionsBuilder(0, 1)
         sob.filter(HumanTaskInstanceSearchDescriptor.ROOT_PROCESS_INSTANCE_ID, processInstance.getId)
         sob.and.filter(HumanTaskInstanceSearchDescriptor.NAME, taskName)
+        sob.and.filter(HumanTaskInstanceSearchDescriptor.STATE_NAME, "READY")
         val searchResult : SearchResult[HumanTaskInstance] = processAPI.searchHumanTaskInstances(sob.done)
         if(searchResult.getCount>0) {
           humanTaskInstance = searchResult.getResult.get(0)

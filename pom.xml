@@ -10,26 +10,17 @@
     <groupId>com.bonitasoft.engine</groupId>
     <artifactId>performance-tests</artifactId>
 
-
-
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+		<maven.surefire.version>2.22.2</maven.surefire.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <scala.version>2.11.7</scala.version>
-        <scala.compat.version>2.11</scala.compat.version>
-        <gatling.version>3.0.3</gatling.version>
-        <gatling-plugin.version>3.0.2</gatling-plugin.version>
+        <gatling.version>3.3.1</gatling.version>
+        <gatling.plugin.version>3.1.2</gatling.plugin.version>
         <bonitaUrl></bonitaUrl>
         <bonitaContext></bonitaContext>
+		<nThreads>10</nThreads>
     </properties>
-
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
 
     <dependencies>
         <dependency>
@@ -38,8 +29,6 @@
             <version>${gatling.version}</version>
             <scope>test</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/io.gatling/gatling-core -->
-		<!--Added by Enrico-->
 		<dependency>
 			<groupId>io.gatling</groupId>
 			<artifactId>gatling-core</artifactId>
@@ -50,46 +39,7 @@
             <artifactId>bonita-client</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.bonitasoft.engine</groupId>
-            <artifactId>bonita-server</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-<!--
-        <dependency>
-            <groupId>org.bonitasoft.engine</groupId>
-            <artifactId>bonita-test-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
--->
 
-        <dependency>
-            <groupId>org.bonitasoft.platform</groupId>
-            <artifactId>platform-resources</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!--
-        <dependency>
-            <groupId>com.bonitasoft.engine</groupId>
-            <artifactId>bonita-client-sp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bonitasoft.engine</groupId>
-            <artifactId>bonita-server-sp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bonitasoft.engine</groupId>
-            <artifactId>bonita-test-api-sp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bonitasoft.platform</groupId>
-            <artifactId>platform-resources-sp</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        -->
     </dependencies>
     <build>
         <sourceDirectory>src/test/scala</sourceDirectory>
@@ -97,33 +47,14 @@
 		<pluginManagement>
 	        <plugins>
 	            <plugin>
-	                <!-- see http://davidb.github.com/scala-maven-plugin -->
-	                <groupId>net.alchim31.maven</groupId>
-	                <artifactId>scala-maven-plugin</artifactId>
-	                <version>4.4.1</version>
-	                <executions>
-	                    <execution>
-	                        <goals>
-	                            <goal>compile</goal>
-	                            <goal>testCompile</goal>
-	                        </goals>
-	                        <configuration>
-	                            <args>
-	                                <arg>-dependencyfile</arg>
-	                                <arg>${project.build.directory}/.scala_dependencies</arg>
-	                            </args>
-	                        </configuration>
-	                    </execution>
-	                </executions>
-	            </plugin>
-	            <plugin>
 	                <groupId>org.apache.maven.plugins</groupId>
 	                <artifactId>maven-surefire-plugin</artifactId>
-	                <version>2.19.1</version>
+	                <version>${maven.surefire.version}</version>
 	                <configuration>
 	                    <systemPropertyVariables>
 	                        <bonitaUrl>${bonitaUrl}</bonitaUrl>
 	                        <bonitaContext>${bonitaContext}</bonitaContext>
+							<nThreads>${nThreads}</nThreads>
 	                    </systemPropertyVariables>
 	                    <useFile>false</useFile>
 	                    <disableXmlReport>true</disableXmlReport>
@@ -138,7 +69,7 @@
 	            <plugin>
 	                <groupId>io.gatling</groupId>
 	                <artifactId>gatling-maven-plugin</artifactId>
-	                <version>${gatling-plugin.version}</version>
+	                <version>${gatling.plugin.version}</version>
 	                <configuration>
 	                    <configFolder>${project.basedir}/src/test/resources</configFolder>
 	                    <resultsFolder>${project.basedir}/target/gatling/results</resultsFolder>

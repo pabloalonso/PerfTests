@@ -51,11 +51,11 @@ class CustomerOnBoardingSimulation extends Simulation {
     .exec(waitForProcessCompletion())
     .exec(logout())
 
-  setUp(scn.inject(atOnceUsers(2)).protocols(bonitaProtocol))
+  setUp(scn.inject(atOnceUsers(1)).protocols(bonitaProtocol))
     //setUp(scn.inject(rampUsers(500).during(20 seconds)).protocols(bonitaProtocol))
 
 
 
 }
 
-//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -Dgatling.simulationClass=tests.CompanyPayrollsSimulation=Simulation
+//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -DtenantAdmin=install -DtenantPassword=install -Dgatling.simulationClass=tests.CompanyPayrollsSimulation

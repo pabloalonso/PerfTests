@@ -12,11 +12,18 @@ class CompanyPayrollsSimulation extends Simulation{
 
   val scn: ScenarioBuilder = scenario("Login logout") // A scenario is a chain of requests and pauses
     .exec(login()
-      .withUser("walter.bates", "bpm"))
+      .withUser(System.getProperty("tenantAdmin"), System.getProperty("tenantPassword")))
     .exec(startProcess("CompanyPayrolls", "1.0"))
+    .exec(executeTaskWhenReady("Confirmation",null,"walter.bates"))
     .exec(waitForProcessCompletion())
     .exec(logout())
 
-  setUp(scn.inject(atOnceUsers(2)).protocols(bonitaProtocol))
+
+  //setUp(scn.inject(rampUsers(20).during(1)).protocols(bonitaProtocol))
+  setUp(scn.inject(atOnceUsers(10)).protocols(bonitaProtocol))
 
 }
+
+
+
+//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -Dgatling.simulationClass=tests.CompanyPayrollsSimulation

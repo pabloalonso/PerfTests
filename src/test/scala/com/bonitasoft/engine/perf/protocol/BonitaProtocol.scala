@@ -35,10 +35,10 @@ object BonitaProtocol {
 
         APITypeManager.setAPITypeAndParams(ApiAccessType.HTTP, bonitaProtocol.settings);
 
-        val waitersThreadPool = Executors.newFixedThreadPool(10)
+        val waitersThreadPool = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("nThreads")))
 
         val client = new APIClient()
-        client.login("install", "install")
+        client.login(System.getProperty("tenantAdmin"), System.getProperty("tenantPassword"))
         println("Setup engine test")
         bonitaProtocol.setupTest(client)
         client.logout()
