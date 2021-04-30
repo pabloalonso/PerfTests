@@ -9,19 +9,14 @@
 
     <groupId>com.bonitasoft.engine</groupId>
     <artifactId>performance-tests</artifactId>
-
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gatling.version>3.3.1</gatling.version>
-        <gatling.plugin.version>3.1.2</gatling.plugin.version>
-        <bonitaUrl></bonitaUrl>
-        <bonitaContext></bonitaContext>
-		<nThreads>10</nThreads>
-    </properties>
-
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gatling.version>3.3.1</gatling.version>
+		<gatling.plugin.version>3.1.2</gatling.plugin.version>
+	</properties>
     <dependencies>
         <dependency>
             <groupId>io.gatling.highcharts</groupId>
@@ -51,11 +46,6 @@
 	                <artifactId>maven-surefire-plugin</artifactId>
 	                <version>${maven.surefire.version}</version>
 	                <configuration>
-	                    <systemPropertyVariables>
-	                        <bonitaUrl>${bonitaUrl}</bonitaUrl>
-	                        <bonitaContext>${bonitaContext}</bonitaContext>
-							<nThreads>${nThreads}</nThreads>
-	                    </systemPropertyVariables>
 	                    <useFile>false</useFile>
 	                    <disableXmlReport>true</disableXmlReport>
 	                    <!-- If you have classpath issue like NoDefClassError,... -->
@@ -92,8 +82,10 @@
 	                    </includes>
 	                </configuration>
 	            </plugin>
+
 	        </plugins>
 		</pluginManagement>
     </build>
+
 
 </project>

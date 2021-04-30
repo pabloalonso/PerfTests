@@ -52,7 +52,7 @@ class CustomerOnBoardingSimulation extends Simulation {
     .exec(logout())
 
   setUp(scn.inject(atOnceUsers(1)).protocols(bonitaProtocol))
-    //setUp(scn.inject(rampUsers(500).during(20 seconds)).protocols(bonitaProtocol))
+  setUp(scn.inject(rampUsers(500).during(20)).protocols(bonitaProtocol))
 
 
 

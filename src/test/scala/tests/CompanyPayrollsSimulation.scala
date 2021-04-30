@@ -18,12 +18,13 @@ class CompanyPayrollsSimulation extends Simulation{
     .exec(waitForProcessCompletion())
     .exec(logout())
 
+  val numRampUsers: Integer = Integer.parseInt(System.getProperty("rampUsers"));
+  val timeToRamp: Integer = Integer.parseInt(System.getProperty("timeToRamp"));
 
-  //setUp(scn.inject(rampUsers(20).during(1)).protocols(bonitaProtocol))
-  setUp(scn.inject(atOnceUsers(10)).protocols(bonitaProtocol))
+  setUp(scn.inject(rampUsers(numRampUsers).during(timeToRamp)).protocols(bonitaProtocol))
+
+  //setUp(scn.inject(atOnceUsers(10)).protocols(bonitaProtocol))
 
 }
 
-
-
-//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -Dgatling.simulationClass=tests.CompanyPayrollsSimulation
+//mvn gatling:test -DbonitaUrl=http://localhost:8080 -DbonitaContext=bonita -DtenantAdmin=install -DtenantPassword=install -Dgatling.simulationClass=tests.CompanyPayrollsSimulation -DnThreads=10 -DrampUsers=2 -DtimeToRamp=1

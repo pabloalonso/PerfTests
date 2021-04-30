@@ -1,8 +1,10 @@
 package com.bonitasoft.engine.perf.protocol
 
 import java.util
-
 import org.bonitasoft.engine.api.APIClient
+
+import java.io.InputStream
+import java.util.Properties
 
 object BonitaProtocolBuilder {
 
@@ -24,6 +26,7 @@ case class BonitaProtocolBuilder(protocol: BonitaProtocol) {
     this
   }
   def remote(): BonitaProtocolBuilder = {
+
     this.protocol.local = false
     val settings = new util.HashMap[String,String]()
     settings.put("server.url", System.getProperty("bonitaUrl"))
