@@ -5,7 +5,8 @@ This program can be used for performance tests on a Bonita platform
 Minimum Java version required: Java 11
 Tested with Maven 3.6.3 and java 11
 Frameworks used: Gatling, Scala
-Access to a bonita server with a test process installed 
+Access to a bonita server with a test process installed
+If a human task is defined in the process, a user that executes the task should be defined in the portal and in the simulation file (i.e.CompanyPayrollSimulation.scala)
 
 ## Compiling testing and running the program
 ```
