@@ -9,7 +9,7 @@ import io.gatling.core.config.GatlingConfiguration
 import io.gatling.core.protocol.{Protocol, ProtocolComponents, ProtocolKey}
 import io.gatling.core.session.Session
 import org.bonitasoft.engine.api.{APIClient, ApiAccessType}
-import org.bonitasoft.engine.test.{TestEngine, TestEngineImpl}
+//import org.bonitasoft.engine.test.{TestEngine, TestEngineImpl}
 import org.bonitasoft.engine.util.APITypeManager
 
 object BonitaProtocol {
@@ -32,32 +32,18 @@ object BonitaProtocol {
     def newComponents(coreComponents: CoreComponents): BonitaProtocol => BonitaComponents = {
 
       bonitaProtocol => {
-        var engine : TestEngine = null;
-        if(bonitaProtocol.local) {
-          println("Start engine")
-          engine = TestEngineImpl.getInstance()
-          engine.start()
-          coreComponents.actorSystem.registerOnTermination {
-            try {
-              println("Stop engine")
-              engine.stop()
-            } catch {
-              case _: Throwable => println("error on engine shutdown")
-            }
-          }
 
-        }else{
-          APITypeManager.setAPITypeAndParams(ApiAccessType.HTTP, bonitaProtocol.settings);
-        }
-        val waitersThreadPool = Executors.newFixedThreadPool(10)
+        APITypeManager.setAPITypeAndParams(ApiAccessType.HTTP, bonitaProtocol.settings);
+
+        val waitersThreadPool = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("nThreads")))
 
         val client = new APIClient()
-        client.login("install", "install")
+        client.login(System.getProperty("tenantAdmin"), System.getProperty("tenantPassword"))
         println("Setup engine test")
         bonitaProtocol.setupTest(client)
         client.logout()
 
-        BonitaComponents(bonitaProtocol, engine, waitersThreadPool)
+        BonitaComponents(bonitaProtocol,  waitersThreadPool)
       }
     }
   }
@@ -72,7 +58,6 @@ case class BonitaProtocol(
 }
 
 case class BonitaComponents(bonitaProtocol: BonitaProtocol,
-                            engine: TestEngine,
                             executor: ExecutorService) extends ProtocolComponents {
 
   def client: APIClient = new APIClient()

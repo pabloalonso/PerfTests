@@ -9,7 +9,6 @@ import io.gatling.core.session.Session
 import io.gatling.core.stats.StatsEngine
 import io.gatling.core.util.NameGen
 
-
 class StartProcessAction(coreComponents: CoreComponents,
                          bonitaComponents: BonitaComponents,
                          val statsEngine: StatsEngine,
